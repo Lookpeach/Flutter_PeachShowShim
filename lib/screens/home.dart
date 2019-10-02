@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:peachshowshim/screens/my_style.dart';
+import 'package:peachshowshim/screens/register.dart';
 
 class Home extends StatefulWidget {
   //commu and add data to new scene
@@ -23,8 +25,8 @@ class _HomeState extends State<Home> {
     return Text(
       'Peach Show Shim',
       style: TextStyle(
-        fontSize: 20.0,
-        color: Colors.grey[800],
+        fontSize: 30.0,
+        color: MyStyle().textColor,
         fontWeight: FontWeight.bold,
         fontStyle: FontStyle.normal,
         fontFamily: 'PatrickHand',
@@ -34,10 +36,10 @@ class _HomeState extends State<Home> {
 
   Widget signInButton() {
     return RaisedButton(
-      color: Colors.lime,
+      color: MyStyle().textColor,
       child: Text(
         'Sign In',
-        style: TextStyle(color: Colors.lime[900]),
+        style: TextStyle(color: Colors.white),
       ),
       onPressed: () {},
     );
@@ -46,7 +48,12 @@ class _HomeState extends State<Home> {
   Widget signUpButton() {
     return OutlineButton(
       child: Text('Sign Up'),
-      onPressed: () {},
+      onPressed: () {
+        print('you Click Sign Up');
+        MaterialPageRoute materialPageRoute = MaterialPageRoute(builder: (BuildContext context) => Register()); //สืบทอด class // Route การเปบี่ยนหน้า
+        Navigator.of(context).push(materialPageRoute); // auto arrow back
+
+      },
     );
   }
 
