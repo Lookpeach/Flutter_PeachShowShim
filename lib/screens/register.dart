@@ -8,6 +8,8 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
 //Explicit
+  String name, email, password; //paramiter for send to cloud
+  final formKey = GlobalKey<FormState>(); //รับค่าจาก text from fielfield
 
 //Method
   Widget registerButton() {
@@ -15,7 +17,10 @@ class _RegisterState extends State<Register> {
       icon: Icon(Icons.cloud_upload),
       tooltip:
           'Upload Value to my Database', //icon at material.io + tooltip and pop up text on mouse over
-      onPressed: () {},
+      onPressed: () {
+        formKey.currentState.save();
+        print('name = $name,email =$email,password = $password'); //$คือเอาค่ามาแสดง
+      },
     );
   }
 
@@ -29,11 +34,15 @@ class _RegisterState extends State<Register> {
         labelText: 'Display Name :',
         helperText: 'Type Your Name',
       ),
+      onSaved: (String value) {
+        name = value.trim();
+      },
     );
   }
 
   Widget emailText() {
-    return TextFormField(keyboardType: TextInputType.emailAddress,
+    return TextFormField(
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         icon: Icon(
           Icons.email,
@@ -42,6 +51,9 @@ class _RegisterState extends State<Register> {
         labelText: 'Email :',
         helperText: 'Type Your Email',
       ),
+      onSaved: (String value) {
+        email = value.trim();
+      },
     );
   }
 
@@ -55,6 +67,9 @@ class _RegisterState extends State<Register> {
         labelText: 'Password :',
         helperText: 'Type Your Password',
       ),
+      onSaved: (String value) {
+        password = value.trim();
+      },
     );
   }
 
@@ -66,13 +81,15 @@ class _RegisterState extends State<Register> {
         title: Text('Register'),
         actions: <Widget>[registerButton()],
       ),
-      body: ListView(
-        padding: EdgeInsets.all(40.0), //ห่างด้านละ  40
-        children: <Widget>[
-          nameText(),
-          emailText(),
-          passwordText(),
-        ],
+      body: Form(key: formKey,
+              child: ListView(
+          padding: EdgeInsets.all(40.0), //ห่างด้านละ  40
+          children: <Widget>[
+            nameText(),
+            emailText(),
+            passwordText(),
+          ],
+        ),
       ), //ใส่ของเกินจอได้
     );
   }
